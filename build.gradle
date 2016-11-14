@@ -1,0 +1,46 @@
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+}
+
+apply plugin: 'java'
+apply plugin: 'eclipse'
+
+
+repositories {
+    mavenCentral()
+}
+
+def javaVersion = '1.7'
+def javaEncoding = 'UTF-8'
+compileJava     { sourceCompatibility = javaVersion; targetCompatibility = javaVersion; options.encoding = javaEncoding }
+compileTestJava { sourceCompatibility = javaVersion; targetCompatibility = javaVersion; options.encoding = javaEncoding }
+
+sourceSets {
+    main {	
+        java {
+            srcDirs = ["src"]
+        }
+	}
+    test {
+        java {
+            srcDirs = ["test"]
+        }
+    }
+}
+
+dependencies {
+    // Test
+    testCompile "junit:junit:4.11"
+}
+
+test {
+    afterTest { desc, result -> 
+        println "Executing test ${desc.name} [${desc.className}] with result: ${result.resultType}"
+    }
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion = '2.4'
+}
