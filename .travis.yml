@@ -8,7 +8,7 @@ env:
   global:
    # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
    #   via the "travis encrypt" command using the project repo's public key
-   - secure: "Fos0kW+C1z34hr+wz6VwdXEuaK1yk42QUocr51vXfihLm3PhuSk3AsSIa4mU8lO0DwiVH+hKNdNXZ13/eCV5ToqsF3gsjqX22a2hTSUYE5jERA4vsqVDpzWRCSK7xP67n6kWGBSHuvNJ/tP1ZlzzBameU+9OolRR6aalfAo+6eEaJOeKkCERGi+7PQBnGj+NGxFPeRZM7anoy8OJA4saISotJ2nqiFg4/xk3u7HcBeYjgwdy6kdCkYV2StkdVQIh/t7ocBsSVvS9UEaW5PLjWv13q0Zc+mJD/OgErYWE/NcD+jGoK1sBKQzgUWoXN11mPTiKI1TMS+K9+B69xFYPTXbPR69rU6C6Q4WbZwqxTt2cLtmw8Am18FcTVyJ/ggBpCBUJ3Dm5I+UNxTMau88kxqkaGzKxnwYUmBYcR1agqzRAVZ6WjzPnor6ULl0v677SS1TbCi1hM6XyXwygtC70GqBsi6x0qZy0xapAYZk8GWthbT/KhNNhNM+cprRnN415aoKgCvLXUp11kQ3bzlqQn28Ggl//RmZNgH2n96IR+Xd7xxwdKWs5c7mgKc65xigeuRk4DZGmhdz4OH96wbpTjpftumAenW4hJkoHKqL9E402NyjY4SqX3/kubCwSSM3FFdgsoe3xDc3KYUOg2zBqMJ5oqXgGck+W5Akjl3zeTBs="
+   - secure: "hQSPkKY9Lta8xcDjvv6xiU2DDOpvLuCwHgkRn5NxmCJSyPRononbJm4hiTtz7Af+6Nkqk7sSWGW9ZRFt0BJ9FvT8r+OlN+ITl7dZdXoqubXoKVgExtBRHLZHT33D4tXP3FB9t6U4uET3qZv9dRB+3K2OqtuGx1UnHXnj+I5We3t5g7uriW/AAzIMzrcglWAGCtzRsLp+HWQZuWc3w01LS3FDDPj0hskkdp8eVmk0FHnKu0lScFB1mph99aS1VRlSx/UesAp7MTxOgSMufA1jE/610Oei8gVpsgoUZNHsrYH1xwrjgwnDMNCnVlgPFLtfWvWrXoj380cb1OV9b/wLybbbmjxcFqi5oSzb5Da+iy1YZVKSAnFkvkanDtocE/iMNatEPHSZbUi1PGJeNVqz+VNqX7KZtTReInZ3LraWCstIi3koxBKkSn5sZwHX6RXaU2Rla72jgyLjv52sFWhUZHYN9fKbAiHtw8fkPQj2eAqwscRaEI1EbXv1Ar3JBUegRz3FfH4hvRP1Zh14tVUe+NOXYNqI8UkHzFEdcKOnUK4rHaa6Oqfyxo9OA0NdgCGc0P9YUOEnzRdEbfhaMBQ2x59XCcQrgkBJT4wEW8NIJnn3h0AFOJdjTNNYcinImph0sVMKfS0UNM98o/d0tgykpfxVtVa1XyiBMAoYRit6Zlo="
 
 before_install:
       - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
@@ -17,8 +17,8 @@ addons:
   coverity_scan:
     project:
       name: "BujakiAttila/MapIT"
-      description: "<Your project description here>"
+      description: "Build submitted via Travis CI"
     notification_email: bujaki.attila@gmail.com
-    build_command_prepend: "<Your build preprocessing command here>"
-    build_command:   "<Your build command here>"
+    build_command_prepend: "gradlew clean"
+    build_command:   "gradlew build"
     branch_pattern: coverity_scan
