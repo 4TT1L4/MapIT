@@ -12,7 +12,7 @@ import com.github.mapit.backend.implementation.ImageLoader;
 import com.github.mapit.server.IServer;
 
 /**
- * Tests the MapITFactory test class.
+ * Tests the MapITFactory class.
  * 
  * @author Attila
  *
