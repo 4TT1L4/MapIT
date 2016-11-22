@@ -3,3 +3,22 @@ jdk:
   - oraclejdk8
 after_success:
   - bash <(curl -s https://codecov.io/bash)
+  
+env:
+  global:
+   # The next declaration is the encrypted COVERITY_SCAN_TOKEN, created
+   #   via the "travis encrypt" command using the project repo's public key
+   - secure: "Fos0kW+C1z34hr+wz6VwdXEuaK1yk42QUocr51vXfihLm3PhuSk3AsSIa4mU8lO0DwiVH+hKNdNXZ13/eCV5ToqsF3gsjqX22a2hTSUYE5jERA4vsqVDpzWRCSK7xP67n6kWGBSHuvNJ/tP1ZlzzBameU+9OolRR6aalfAo+6eEaJOeKkCERGi+7PQBnGj+NGxFPeRZM7anoy8OJA4saISotJ2nqiFg4/xk3u7HcBeYjgwdy6kdCkYV2StkdVQIh/t7ocBsSVvS9UEaW5PLjWv13q0Zc+mJD/OgErYWE/NcD+jGoK1sBKQzgUWoXN11mPTiKI1TMS+K9+B69xFYPTXbPR69rU6C6Q4WbZwqxTt2cLtmw8Am18FcTVyJ/ggBpCBUJ3Dm5I+UNxTMau88kxqkaGzKxnwYUmBYcR1agqzRAVZ6WjzPnor6ULl0v677SS1TbCi1hM6XyXwygtC70GqBsi6x0qZy0xapAYZk8GWthbT/KhNNhNM+cprRnN415aoKgCvLXUp11kQ3bzlqQn28Ggl//RmZNgH2n96IR+Xd7xxwdKWs5c7mgKc65xigeuRk4DZGmhdz4OH96wbpTjpftumAenW4hJkoHKqL9E402NyjY4SqX3/kubCwSSM3FFdgsoe3xDc3KYUOg2zBqMJ5oqXgGck+W5Akjl3zeTBs="
+
+before_install:
+      - echo -n | openssl s_client -connect scan.coverity.com:443 | sed -ne '/-BEGIN CERTIFICATE-/,/-END CERTIFICATE-/p' | sudo tee -a /etc/ssl/certs/ca-
+
+addons:
+  coverity_scan:
+    project:
+      name: "BujakiAttila/MapIT"
+      description: "<Your project description here>"
+    notification_email: bujaki.attila@gmail.com
+    build_command_prepend: "<Your build preprocessing command here>"
+    build_command:   "<Your build command here>"
+    branch_pattern: coverity_scan
