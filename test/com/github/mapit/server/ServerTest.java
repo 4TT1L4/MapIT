@@ -11,6 +11,7 @@ import org.mockito.runners.MockitoJUnitRunner;
 
 import com.github.mapit.backend.IMapITApp;
 import com.github.mapit.backend.ImageInfo;
+import com.github.mapit.backend.implementation.Image;
 
 /**
  * Tests the Server class.
@@ -105,5 +106,46 @@ public class ServerTest {
     	
     	// Verify.
     	assertEquals(INDEX_CONTENT, content);
+    }
+    
+    /**
+     * Tests if the server returns an error message for an invalid image index.
+     */
+    @Test
+    public void test_getImage_errorMessageIsPrintedForInvalidIndex()
+    {
+    	// Exercise.
+    	String content = server.getImage("-5");
+    	
+    	// Verify.
+    	assertEquals("Invalid index.", content);
+    }
+    
+    /**
+     * Tests if the server returns the image information for the given index for a valid index.
+     */
+    @Test
+    public void test_getImage_imageInformationIsReturnedForValidIndex()
+    {
+    	// Setup.
+    	when(app.getImageCount()).thenReturn(4);
+    	when(app.getImage(0)).thenReturn(new Image(23d, 24d));
+    	
+    	// Exercise.
+    	String content = server.getImage("0");
+    	
+    	// Verify.
+    	assertEquals("23.0,24.0", content);
+    }
+    
+    /**
+     * Tests if the server can be started and killed.
+     */
+    @Test
+    public void test_startAndKill_noException()
+    {
+    	// Exercise.
+    	server.init();
+    	server.kill();
     }
 }
