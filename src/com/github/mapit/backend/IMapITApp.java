@@ -30,4 +30,9 @@ public interface IMapITApp {
 	 * @return true if the backend is still loading images. If the images had been loaded and the image count is final, then it returns false.
 	 */
 	boolean isLoading();
+	
+	/**
+	 * Starts the initialization of the Map IT application.
+	 */
+	void init();
 }

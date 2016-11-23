@@ -28,8 +28,7 @@ public class MapITApp implements IMapITApp {
 	 */
 	@Override
 	public int getImageCount() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.loader.getImages().size();
 	}
 
 	/**
@@ -37,8 +36,7 @@ public class MapITApp implements IMapITApp {
 	 */
 	@Override
 	public ImageInfo getImage(int index) {
-		// TODO Auto-generated method stub
-		return null;
+		return this.loader.getImages().get(index);
 	}
 
 	/**
@@ -46,7 +44,14 @@ public class MapITApp implements IMapITApp {
 	 */
 	@Override
 	public boolean isLoading() {
-		// TODO Auto-generated method stub
-		return false;
+		return this.loader.isLoading();
+	}
+
+	/**
+	 * @see IMapITApp#init()
+	 */
+	@Override
+	public void init() {
+		loader.loadImages();
 	}
 }

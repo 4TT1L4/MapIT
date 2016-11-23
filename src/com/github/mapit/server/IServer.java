@@ -7,6 +7,13 @@ package com.github.mapit.server;
  *
  */
 public interface IServer {
+	/**
+	 * Initialize the IServer instance.
+	 */
 	void init();
+	
+	/**
+	 * Free the resources.
+	 */
 	void kill();
 }

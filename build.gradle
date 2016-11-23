@@ -10,7 +10,7 @@ apply plugin: 'jacoco'
 
 repositories {
     mavenCentral()
-	jcenter() 
+    jcenter() 
 }
 
 def javaVersion = '1.8'
@@ -19,11 +19,11 @@ compileJava     { sourceCompatibility = javaVersion; targetCompatibility = javaV
 compileTestJava { sourceCompatibility = javaVersion; targetCompatibility = javaVersion; options.encoding = javaEncoding }
 
 sourceSets {
-    main {	
+    main {    
         java {
             srcDirs = ["src"]
         }
-	}
+    }
     test {
         java {
             srcDirs = ["test"]
@@ -33,9 +33,10 @@ sourceSets {
 
 dependencies {
     compile "com.sparkjava:spark-core:2.5.2" //add to build.gradle
+    compile 'com.drewnoakes:metadata-extractor:2.9.1'
     // Test
     testCompile "junit:junit:4.11"
-	testCompile "org.mockito:mockito-core:1.+" 
+    testCompile "org.mockito:mockito-core:1.+" 
 }
 
 test {

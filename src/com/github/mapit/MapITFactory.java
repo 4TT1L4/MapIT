@@ -15,16 +15,25 @@ import com.github.mapit.server.Server;
  */
 public class MapITFactory implements IMapITFactory {
 	
+	/**
+	 * @see IMapITFactory#getServer
+	 */
 	@Override
 	public IServer getServer(IMapITApp app) {
 		return new Server(app);
 	}
 
+	/**
+	 * @see IMapITFactory#getApp
+	 */
 	@Override
 	public IMapITApp getApp(ImageLoader loader) {
 		return new MapITApp(loader);
 	}
 
+	/**
+	 * @see IMapITFactory#getImageLoader
+	 */
 	@Override
 	public ImageLoader getImageLoader() {
 		return new ImageLoaderImpl();

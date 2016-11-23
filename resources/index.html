@@ -13,32 +13,21 @@
     </script>
     <script type="text/javascript">
       var map;
-      function initialize() {
+      function initialize () {
         var mapOptions = {
           center: new google.maps.LatLng(49.6, 11.00),
           zoom: 4
         };
         map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
-        var myLatLng = {lat: 49.6, lng: 11.00};
-
-        var marker = new google.maps.Marker({
-          position: myLatLng,
-          map: map,
-          title: 'Erlangen',
-          url: 'https://en.wikipedia.org/wiki/Erlangen'
-        });
-        google.maps.event.addListener(marker, 'click', function() {
-            window.location.href = this.url;
-         });
       }
-      google.maps.event.addDomListener(window, 'load', initialize);           
-      
-      function updateLoading()
+      google.maps.event.addDomListener(window, "load", initialize);
+
+      function updateLoading ()
       {
       $.ajax({
         url: "/isLoading",
-        success: function( result ) {
+        success: function (result) {
                if(result.valueOf()  == "false".valueOf() )
                {
                   $("#loading").hide(1500);
@@ -49,19 +38,81 @@
                    updateLoading();
                    }
                    , 1000);
-               }               
+               }
             }
            });
        }
-        
-      setTimeout(function(){
+
+       function addPinPoint (latitude, longitude)
+       {
+        var myLatLng = {lat: latitude, lng: longitude};
+
+        var marker = new google.maps.Marker({
+          position: myLatLng,
+          map: map
+        });
+        }
+
+      var currentImageCount = 0;
+      var loadedImageCount = 0;
+
+      function loadPictures ()
+      {
+              $.ajax({
+              url: "/getImageData?id=" + loadedImageCount,
+              success: function( result ) {
+                 res = result.split(',')
+                 addPinPoint(parseFloat(res[0]), parseFloat(res[1]));
+                 loadedImageCount++;
+                 if(loadedImageCount < currentImageCount)
+                 {
+                     loadPictures();
+                 }
+                 else
+                 {
+                      setTimeout(function(){
+                         queryPictureCount();
+                      }
+                      , 100);
+                 }
+            }
+           });
+      }
+
+      function queryPictureCount ()
+      {
+        $.ajax({
+        url: "/getImageCount",
+        success: function (result) {
+                 var imageCount = parseInt(result);
+                 if(!isNaN(imageCount) && imageCount > 0 )
+                 {
+                     currentImageCount = imageCount;
+
+                     if(loadedImageCount < currentImageCount)
+                     {
+                         loadPictures();
+                     }
+                 }
+            }
+           });
+      }
+
+      setTimeout (function(){
            updateLoading();
            }
            , 1000);
+
+      setTimeout (function(){
+           queryPictureCount();
+           }
+           , 100);
     </script>
   </head>
   <body>
-    <div id='loading' style=' z-index: 3;right: 5px;top: 5px;position: absolute;'><img src='https://upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif'></div>
+    <div id='loading' style=' z-index: 3;right: 5px;top: 5px;position: absolute;'>
+        <img src='https://upload.wikimedia.org/wikipedia/commons/d/de/Ajax-loader.gif'>
+    </div>
     <div id="map-canvas"/>
   </body>
 </html>

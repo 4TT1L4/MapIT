@@ -3,6 +3,7 @@ package com.github.mapit.server;
 import static spark.Spark.*;
 
 import com.github.mapit.backend.IMapITApp;
+import com.github.mapit.backend.ImageInfo;
 
 /**
  * Implements the web server for the MapIT system.
@@ -39,15 +40,30 @@ public class Server implements IServer {
 	
 	/**
 	 * Initialize the web server.
+	 * 
+	 * @see IServer#init
 	 */
 	@Override
 	public void init()
 	{
 		get("/isLoading", (req, res) -> "" + isLoading());
 		get("/getImageCount", (req, res) -> "" + getImageCount());
+		get("/getImageData", (req, res) -> getImage(req.queryParams("id")));
 		get("/", (req, res) -> getWebpage());
 	}
 	
+	String getImage(String indexString) {		
+		int index = Integer.parseInt(indexString);
+
+		if(index >= getImageCount() || index < 0)
+		{
+			return "Invalid index.";
+		}
+		
+		ImageInfo image = application.getImage(index);		
+		return image.getLatitude() + "," + image.getLongitude();
+	}
+
 	/**
 	 * @return The content of the index page.
 	 */
@@ -71,6 +87,9 @@ public class Server implements IServer {
 		return application.getImageCount();
 	}
 
+	/**
+	 * @see IServer#kill
+	 */
 	@Override
 	public void kill() {
 		stop();
