@@ -2,6 +2,7 @@ package com.github.mapit.backend.implementation;
 
 import com.github.mapit.backend.IMapITApp;
 import com.github.mapit.backend.ImageInfo;
+import com.github.mapit.backend.ImageLoader;
 
 /**
  * MapIT application implementation.

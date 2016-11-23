@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.List;
 
 import com.github.mapit.backend.ImageInfo;
+import com.github.mapit.backend.ImageLoader;
 
 /**
  * Provides images for the MapIT application.
@@ -17,6 +18,24 @@ public class ImageLoaderImpl implements ImageLoader {
 	List<ImageInfo> images = new ArrayList<ImageInfo>();
 	volatile boolean isLoading = true;
 
+	LoadImagesJob loaderJob;
+	
+	/**
+	 * Constructor.
+	 */
+	public ImageLoaderImpl()
+	{
+		loaderJob = new LoadImagesJob(this);
+	}
+	
+	/**
+	 * Constructor for unit testing.
+	 */
+	public ImageLoaderImpl(LoadImagesJob loaderJob)
+	{
+		this.loaderJob = loaderJob;
+	}
+	
 	/**
 	 * @see ImageLoader#isLoading()
 	 */
@@ -31,7 +50,7 @@ public class ImageLoaderImpl implements ImageLoader {
 	 */
 	@Override
 	public void loadImages() {
-		(new LoadImagesJob(this)).start();
+		loaderJob.start();
 	}
 
 	/**

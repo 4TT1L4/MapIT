@@ -3,7 +3,7 @@ package com.github.mapit;
 import java.io.IOException;
 
 import com.github.mapit.backend.IMapITApp;
-import com.github.mapit.backend.implementation.ImageLoader;
+import com.github.mapit.backend.ImageLoader;
 import com.github.mapit.server.IServer;
 
 /**

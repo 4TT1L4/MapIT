@@ -19,7 +19,7 @@ import com.github.mapit.backend.ImageInfo;
  * @author Attila
  *
  */
-final class LoadImagesJob extends Thread {
+class LoadImagesJob extends Thread {
 	/**
 	 * Reference to the ImageLoader instance.
 	 */

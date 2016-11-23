@@ -8,7 +8,7 @@ import org.mockito.Mock;
 import org.mockito.runners.MockitoJUnitRunner;
 
 import com.github.mapit.backend.IMapITApp;
-import com.github.mapit.backend.implementation.ImageLoader;
+import com.github.mapit.backend.ImageLoader;
 import com.github.mapit.server.IServer;
 
 /**

@@ -1,8 +1,6 @@
-package com.github.mapit.backend.implementation;
+package com.github.mapit.backend;
 
 import java.util.List;
-
-import com.github.mapit.backend.ImageInfo;
 
 /**
  * Interface for ImageLoaders for providing images.
